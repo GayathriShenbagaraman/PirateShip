@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class PirateShipSolution {
+    private static final Scanner scanner = new Scanner(System.in);
+	public static void main(String[] args) {
+	    int count = Integer.parseInt(scanner.nextLine().trim());
+	    
+	    List<Integer> inputArray = new ArrayList<>();
+	    
+        String[] inputItems = scanner.nextLine().split(" ");
+        
+        for (int i = 0; i < count; i++) {
+            int item = Integer.parseInt(inputItems[i]);
+            inputArray.add(item);
+        }
+        
+        System.out.println(getDaysCount(inputArray));
+	}
+	
+	public static int getDaysCount(List<Integer> inputArray) {
+	    int countDays = 0;
+	    List<Integer> itemsToBeRemoved = new ArrayList<>();
+        
+        for(int itr=1; itr<inputArray.size(); itr++) {
+            if(inputArray.get(itr) > inputArray.get(itr - 1)) {
+                itemsToBeRemoved.add(inputArray.get(itr));
+            }
+            
+            if(itr == inputArray.size() - 1) {
+                if(itemsToBeRemoved.size() > 0) {
+                    itr = 1;
+                    for(Integer item : itemsToBeRemoved) {
+                        inputArray.remove(new Integer(item));
+                    }
+                    itemsToBeRemoved.clear();
+                    countDays++;
+                }
+            }
+        }
+        
+        return countDays;
+	}
+}
